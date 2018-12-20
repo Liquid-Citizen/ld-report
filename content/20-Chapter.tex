@@ -1,0 +1,205 @@
+\chapter{Theory}
+\label{ch:Theory}
+
+In this section we will discuss the theoretical background the project of this report is based on. As noted in \hyperref[sec:Objective]{the introduction}, the project aims at developing a proof-of-concept implementation of a Citizen Science accessible Liquid Democracy game. As such, it needs to be grounded in a thorough understanding of both the concept of \hyperref[sec:Theory_CS]{Citizen Science} and \hyperref[sec:Liquid_Democracy]{Liquid Democracy}. Additionally it needs to identify and address the problems and issues raised in relation to these concepts. 
+
+In order to address these issues, a discussion of their context is indispensable. In recognition of this, the structure of this section is as follows:
+After introducing the basic terms and the context they stem from (in \ref{ssec:Background_CS} and \ref{ssec:Liquid_Democracy} respectively), issues and open questions are addressed for both concepts separately (in \ref{ssec:Issues_CS} and \ref{ssec:Issues_LD} respectively). 
+
+Subsequently to a discussion on the background of the respective concept, we will \hyperref[sec:Integration_CSLD]{discuss synergies and challenges} of integrating these perspectives. Based on this integrative perspective and the aspects discussed at the beginning of this section, we will \hyperref[sec:Criteria]{derive a number of criteria} a Liquid Democracy game grounded in Citizen Science needs to exhibit, in order to develop a theory-grounded approach to the project's objective.
+% Clara
+\section{CS}
+\label{sec:Theory_CS}
+\subsection{Background / Context Citizen Science}
+\label{ssec:Background_CS}
+Grundidee CS. Wieso ist die Projectidee geil usw.
+\subsection{Issues and Open Questions in Citizen Science}
+\label{ssec:Issues_CS}
+
+\newpage
+
+\section{Liquid Democracy}
+\label{sec:Liquid_Democracy}
+
+Even though there are many forms of political government, it is democracy that spread around the globe over the last hundred years (see \autoref{fig:democracy-trend}). \textit{“As of the end of 2016, 97 out of 167 countries (58\,\%) [\ldots] were democracies [\ldots]”} \parencite{Desilver2017}. According to the observations in \autoref{fig:democracy-trend} it can be argued that democracy is a successful and thus modern structure, since there is no competing political system showing a similar thriving trend as democracy does.
+
+\begin{figure}[H]
+
+	\centering \begin{tikzpicture}
+	\node[anchor=south west,inner sep=0] (image) at (0,0,0) {\includegraphics[width=8cm]{democracy-trend.png}};
+	\begin{scope}[x={(image.south east)},y={(image.north west)}]
+% 	% next four lines will help you to locate the point needed by forming a grid. comment these four lines in the final picture.↓
+% 		\draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
+% 		\draw[help lines,xstep=.05,ystep=.05] (0,0) grid (1,1);
+% 		\foreach \x in {0,1,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
+% 		\foreach \y in {0,1,...,9} { \node [anchor=east] at (0,\y/10) {0.\y};}
+% 	% upto here↑
+    
+	\libertineLF
+	\draw (-0.05,0.0) node {\small{0\,\%}};
+    \draw (-0.06,0.2) node {\small{20\,\%}};
+    \draw (-0.06,0.4) node {\small{40\,\%}};
+    \draw (-0.06,0.6) node {\small{60\,\%}};
+    \draw (-0.06,0.8) node {\small{80\,\%}};
+    \draw (-0.07,1.0) node {\small{100\,\%}};
+   	\libertineOsF
+    \draw (0.0,-0.06) node {1816};
+    \draw (0.17,-0.06) node {1850};
+    \draw (0.425,-0.06) node {1900};
+    \draw (0.67,-0.06) node {1950};
+    \draw (0.93,-0.06) node {2000};
+    
+	\draw[-latex] (0.99,0.25) -- +(0.5cm,0cm)node[anchor=west] {\scriptsize{Democracy}};
+    \draw[-latex] (0.99,0.6) -- +(0.5cm,0cm)node[anchor=west] {\scriptsize{Open Anocracy}};
+    \draw[-latex] (0.99,0.695) -- +(0.5cm,0cm)node[anchor=west] {\scriptsize{Closed Anocracy}};
+    \draw[-latex] (0.99,0.85) -- +(0.5cm,0cm)node[anchor=west] {\scriptsize{Autocracy}};
+    \draw[-latex] (0.99,0.96) -- +(0.5cm,-0.28cm)node[anchor=west] {\scriptsize{Colony}};
+    \draw[-latex] (0.99,0.98) -- +(0.5cm,0cm)node[anchor=west] {\scriptsize{Transition/No data}};
+
+	
+	\end{scope}
+	\end{tikzpicture}
+	\caption[World population by political regime]{World population by political regime \parencite[see][]{Roser2018}.}
+	\label{fig:democracy-trend}
+
+\end{figure}
+Nevertheless, it is neither within the scope of this project to asses democratic characteristics, nor other systems of rule. Democracy, however, entails various advantages compared to other political systems. First and foremost---by its literal translation\footnote{\textit{Rule of the people}, from Ancient Greek: \textgreek{Δημοκρατία} (Dēmokratía): democracy, whereby \textgreek{Δῆμος} (Dêmos) means \textit{the people}, and \textgreek{Κράτος} (Krátos) means \textit{power/strength}.}---democracy empowers its citizens to participate in political processes, and therefore to influence the political pathway. For example, one fundamental element is suffrage, that is, the right to vote. Additionally, democracy allows its people to shape the system’s frame. Thus, a wide range of democracy types\footnote{For further reading see the Wikipedia article \textit{Types of democracy}: \url{https://en.wikipedia.org/wiki/Types_of_democracy}.} have evolved over time. In this project we focus on \textit{liquid democracy}, a variant of democracy that is also known as \textit{delegative democracy}.
+
+
+\subsection{Liquid Democracy Terminology}
+\label{ssec:Liquid_Democracy}
+
+Liquid Democracy (\tracknshrink{LD}) is a type of democracy lying in between two major democracy forms: direct democracy and indirect (or representative) democracy. This \textit{liquid} intersection allows citizens to either delegate their vote to a proxy (i.e., a representative) or to vote directly for a certain state of affairs (e.g., a proposition).
+
+It is important to point out that the voting form \textit{proxy voting} shares some similarities of liquid democracy. There is, however, a fundamental difference: in liquid democracy a proxy may further delegate his/her voices to another proxy, which is not intended for proxy voting. Therefore, a proxy or representative, in the concept of liquid democracy, can be---mathematically---interpreted as a transitive (recursive) vertex within a directed graph. \citeauthor{Kahng2018} states:
+
+\begin{displayquote}
+“In contrast to the classic proxy voting paradigm \parencite{Miller1969}, the key innovation underlying liquid democracy is that proxies [\textellipsis] may delegate their own vote to a proxy, and, in doing so, further delegate all the votes entrusted to them. Put another way [\textellipsis] votes may freely flow through the directed delegation graph until they reach a sink.”\\[1mm]
+\hspace*{\fill}\textcite{Kahng2018}
+\end{displayquote}
+The delegation graph is a fundamental component of liquid democracy. \autoref{fig:Delegation-Cascade} visualizes such a delegation graph/cascade. 
+
+\begin{figure}[H]
+\centering
+\includegraphics{delegation-cascade.png}
+	\caption[Delegate cascade voting]{“A snapshot of a small election in which two separate cascades have formed. Vote flow is depicted by arrows, and volume by numbers. The votes flow together until they pool at the bottom, where they are held by the leading candidates.” \parencite{Allen2008}}
+	\label{fig:Delegation-Cascade}
+\end{figure}
+However, direct voting is neither intended in proxy voting nor in delegation graphs. Therefore---and to fulfill the initial definition of \tracknshrink{LD}---the delegation graph must be extended to permit direct voting, which then allows to further classify the terms: proxy voting, delegation graph and liquid democracy in a true subset relationship: \textit{proxy voting \(\subsetneq\) delegation graph \(\subsetneq\) liquid democracy}. Thus, the concept of liquid democracy acts as a superset for proxy voting and delegation graphs. 
+
+\subsection{Liquid Democracy Mechanics}
+\label{ssec:Liquid_Democracy_Mechanics}
+
+Due to its superset position liquid democracy combines characteristics from proxy voting, delegation graphs and direct voting. To visualize this concept in a simplified manner \autoref{fig:Liquid-Democracy-Delegated-Voting} illustrates the main steps of a voting process within a liquid democracy system.
+
+In liquid democracy, and in directed delegation graphs, the vote always flows from a \textit{principal}\todo{explain Proxy with a reference} to a \textit{proxy}, and, initially, each citizen always starts as a  principal holding their own voice, as depicted in the first column in \autoref{fig:Liquid-Democracy-Delegated-Voting}. From there, each individual has two choices: (1) to vote \textit{directly} for a given state of affairs (Option A, B or C) or (2) to \textit{delegate} their voice to a 
+proxy. Naturally, and for the sake of completeness, citizens have the right to abstain from voting at all, however, in this work we set the focus on people seeking for participation. Thus, choice (1) entitles citizens to \textit{directly} influence a given state of affairs, as depicted in red. Apparently, voting as a ‘initial principal’ yields to the lowest voting impact of \(1\), which is by definition your own inherent voice. Choice (2) entitles citizens to \textit{delegate} their voice to a proxy, which can be the case when the (initial) principal is doubtful in their decision-making (\textit{uncertainty} is depicted by gray color in \autoref{fig:Liquid-Democracy-Delegated-Voting}).
+% * <clarakruckenberg@gmail.com> 2018-12-04T12:30:22.196Z:
+% 
+% > proxy. 
+% I would define proxy a bit further 
+% 
+% ^.
+
+If, however, an individual receives a single voice or multiple voices they automatically become a proxy. In this position they have the same two choices as the principals had before, that is, to either directly vote or to further delegate their votes. This characteristic demonstrates the recursive nature of a liquid democracy system. In the case of an uncertain proxy (column two, \autoref{fig:Liquid-Democracy-Delegated-Voting}), the proxy might further delegate their voices. Technically, by doing so, the proxy becomes a principal, yet with a higher voting impact, since the voting count gets accumulated along the graph, whereby each node has a natural weight of \(1\).
+
+Ultimately, each edge will hit at some point their last node, which are---in a liquid democracy system---individuals being certain about their decision-making and have an opinion (\textit{certainty} is depicted by colors in \autoref{fig:Liquid-Democracy-Delegated-Voting}). In this step there are no further delegations.
+
+\begin{figure}[H]
+	\centering \begin{tikzpicture}
+	\node[anchor=south west,inner sep=0] (image) at (0,0,0) {\includegraphics[width=\linewidth]{Liquid-Democracy-Delegated-Voting.pdf}};
+	\begin{scope}[x={(image.south east)},y={(image.north west)}]
+% 	% next four lines will help you to locate the point needed by forming a grid. comment these four lines in the final picture.↓
+% 		\draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
+% 		\draw[help lines,xstep=.05,ystep=.05] (0,0) grid (1,1);
+% 		\foreach \x in {0,1,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
+% 		\foreach \y in {0,1,...,9} { \node [anchor=east] at (0,\y/10) {0.\y};}
+% 	% upto here↑
+    
+    \draw (0.045,1.03) node {\textsf{\textbf{Principal}}};
+    \draw (0.250,1.03) node {\textsf{\textbf{Proxy 1}}};
+    \draw (0.415,1.03) node {\textsf{\textbf{Proxy n}}};
+    \draw (0.580,1.03) node {\textsf{\textbf{Option}}};
+    \draw (0.800,1.03) node {\textsf{\textbf{Results}}};
+    
+    \draw[line width=0.1mm] (0,0.992) -- (0.98,0.992);
+    
+    \draw (0.068,0.730) node {\textcolor{gray}{\(\textsf{\footnotesize{1}}\)}};
+    \draw (0.068,0.571) node {\textcolor{gray}{\(\textsf{\footnotesize{1}}\)}};
+    \draw (0.068,0.353) node {\textcolor{gray}{\(\textsf{\footnotesize{1}}\)}};
+    \draw (0.068,0.193) node {\textcolor{gray}{\(\textsf{\footnotesize{1}}\)}};
+    \draw (0.068,0.002) node {\textcolor{gray}{\(\textsf{\footnotesize{1}}\)}};
+    
+    \draw (0.280,0.618) node {\textcolor{gray}{\(\textsf{\footnotesize{3}}\)}};
+    \draw (0.450,0.618) node {\textcolor{gray}{\(\textsf{\footnotesize{4}}\)}};
+    \draw (0.450,0.232) node {\textcolor{gray}{\(\textsf{\footnotesize{3}}\)}};
+    
+    \draw (0.58,0.74) node {\textsf{\textcolor{white}{\textbf{A}}}};
+    \draw (0.58,0.35) node {\textsf{\textcolor{white}{\textbf{B}}}};
+    \draw (0.58,0.10) node {\textsf{\textcolor{white}{\textbf{C}}}};
+	
+	\end{scope}
+	\end{tikzpicture}
+    \caption[Illustration of liquid democracy]{Illustration of a liquid democracy system. Each individual has a voice, depicted by the numbers. Citizens may either vote directly or delegate their voice. Delegation will accumulate the voice impact for a proxy. Certainty is color-coded, whereas uncertainty is gray-coded.\\
+    \hspace*{\fill}
+    \scriptsize{\textit{Icons provided by thenounproject.com under Creative Commons \includegraphics[height=\fontcharht\font`\X]{cc-icon.pdf} license}}\\
+    \hspace*{\fill}
+    \tiny{\textit{
+    	\url{https://thenounproject.com/icon/575955/}, 
+    	\url{https://thenounproject.com/icon/24402/},\\
+    	\hspace*{\fill}
+        \url{https://thenounproject.com/icon/751412/}, 				\url{https://thenounproject.com/icon/1471169/}
+        }}
+	\label{fig:Liquid-Democracy-Delegated-Voting}}
+\end{figure}
+
+\subsection{Open Questions in Liquid Democracy}
+
+There is a variety of scientific articles and questions that are widely discussed in various online platforms (see REFERENCES). For this report we highlight some of them in regards
+we assume that voters can only delegate their votes to better-informed voters \parencite{Allen2008}
+
+
+Traditionally, in a parliamentarian democracy, the right to initiate and vote on propositions is exclusive for members of the parliament.
+However, in a liquid democracy, by definition every participant has the right to vote on propositions, and participate in their constitutive phase.
+Consequently, every participant should also have the unrestrained right to create propositions.
+
+In an anonymized large-scale digital liquid democracy, this right could be abused by malicious users to mass-create so called spam propositions in order to bury other propositions and prevent users from voting on them.
+We aim to reduce this threat through the following measures: (1) phased proposition life cycles, (2) adaptive sorting algorithms based on bayesian filtering and (3) moderation.
+
+
+\label{ssec:Issues_LD}
+\section[An Integrative Perspective for CS in LD]{An Integrative Perspective for Citizen Science in Liquid Democracy}
+\label{sec:Integration_CSLD}
+
+\subsection{Data Accessibility and Anonymity}
+\label{ssec:Integration_AccessibilityAnonymity}
+Arguably the most challenging aspect of a CS-based LD platform, is the tension between data accessibility and anonymity. As stressed \todo{actually stress it!} in \ref{ssec:Issues_LD}, vote anonymity is a crucial aspect of democratic voting systems. On the other hand, a lack of transparency and data accessibility \todo[inline]{reduces the Citizen Scientist} to a data provider, devoiding a system of its participatory nature and transforming it into a mere crowd-sourcing platform (from a CS perspective). In order to allowing Citizens to pose (and investigate) research questions based on real-world data within their context of interest and expertise, as well as for delegators to evaluate whether their values are represented appropriately by delegants, data accessibility / transparency (at least to some degree) is imperative.
+
+Although at first glance transparency and anonymity might seems like a null-sum-game where increased data accessibility constitute a violation of a users privacy, a number of strategies do exists that tackle these problems.
+
+\subsubsection{Decoupling User Accounts from Personal Identity}
+
+The most obvious strategy might be to decouple the user account from the personal identity of a user. When done consecuently, with proper protection of data (and the personal identity of the user is used solely to validate the vote connected to the account, or even just the existence of the account), all data of the user can be transparent by everyone, and no restrictions on the data accessiblity needs to be enforced. While this is the optimal solution from the perspective of the Citizen Scientist, and the delegator that can (in theory) perfectly evaluate whether her political power was used as intended, this approach is not without danger.
+
+First, and most obviously, this approach is very problematic when a breach of the separation of the user and personal identity of the user occurs. Perfect safety does not exist, and many cases where sensitive (and this would be highly sensitive) information was exposed do exist (citation needed). More subtly however, with perfect accessibility of user data, with more and more detailed data, increasingly detailed profiles can be constructed, which are more and more likely to be bound to a person by tying their democratic persona to their personal identity (citation needed). While this might be somewhat harder for 'non-public' persons, for people active in the public sphere by their personal identities (e.g. politicians), this link would be easy to establish. One thoughtless given detail might be enough to link the entirety of the user persona to the human behind their account, making transparent in its entirety all activity and views every uttered on the platform. 
+
+Most problematic about this issue from a participatory democratic perspective is the mechanics that more involvement leads to a higher probability of (someone sufficiently clever) the user persona being linked to the person behind this, thus rather discouraging than encouraging engagement in the participatory processes.
+
+\subsubsection{Aggregating User Data}
+
+Another, rather conservative solution for this issue would be to anonymize the user data by aggregating voting behaviour by demographic aspects of users. A scientist would thus get access to the distribution of voting patterns, vote delegation patterns or involvement in issues by certain demographics. Though preserving the anonymity and privacy integrity of the person behind a user, it has two shortcomings. First, this employs a conservative empiric perspective (since science by demography is out and attitude and behaviour, as well as cognitive patterns are en vogue (citation needed)). Second, this enables the interested scientist only to ask one type of question. The form of the research question is thus already pre-determined by the designers of the platform, and the demographic categories users provide. While this doesn't hinder Citizen Scientists to design and perform studies on the data, this doesn't realize the high participatory level of involvement in the research process that we would strive for in this project.
+
+An aspect not addressed by this perspective is how much information a delegator would receive about the delegant (and the delegants it re-delegates the vote to). Since the usage of the single vote of the delegant is of interest, an aggregated perspective does not answer how well he could ensure his values are respected. With absolute transparency of the behaviour of the delegant to the delegator, a malign and smart (group of) delegators could derive information that would validate this paradigm.
+
+\subsubsection{Deflecting Responsibility}
+
+An easy, yet cowardish, third option for dealing with this problem would be to shift the responsibility for this from the platform's designers or operators to the users. Users could decide how much information they want to make available to other users / scientists and their delegators. While this has the chance to solve the problem and pay users the respect of being mature enough to decide this, this might lead to transparency pressure that every user that wants to accumulate political power needs to justify himself. Maybe deciding to pay this price is what can be expected from a politician, but this decision should not be engrained in the architecture of the platform. How easy such a setup would be for a scientist who has to deal with (potentially a lot of) partial information needs to be evaluated.
+
+\subsubsection{Selective Aggregation}
+
+A further, much more involved option would be to 'hide' unaggregated information for inquiring scientists, and to allow only information of a certain level of aggregation. Though similar to the second option posed above, this is quite a different approach to the problem at hand, since this approach explicitly opposes restricting research questions to a set / style of pre-formed research questions. The idea behind this approach is to allow all \textit{kind} of data inquiries, as long as certain criteria are met. These criteria are thought to ensure the anonymity of the user identity against inquiring entities, and would be the main design issue of this concept. As an example, criteria could be quantitative, only allowing access to data with a given amount of entities. This could be realized e.g. through a data query language with a filter instance, only allowing responses on data instances of a given size (in the style of 'how many people that voted like this in elections of this context voted like that / delegated votes' with a negative response when there are only a handful of instances and a valid answer when there are a substantial number of instances). Establishing these criteria would probably result in a lot of (hard) work, but might well be worth it. Whether research would be possible with the partial answers this approach generates, is a different question altogether. 
+This approach further doesn't give an answer to transparency of vote delegation for individual political subjects raised above.
+
+%\subsection{Theorien aus Liquid Feedback}
+\section{Criteria for a CS based LD Platform}
+\label{sec:Criteria}
